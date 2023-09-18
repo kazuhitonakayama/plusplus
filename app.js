@@ -13,7 +13,11 @@ const app = new App({
 // "hello" を含むメッセージをリッスンします
 app.message('++', async ({ message, say }) => {
   // イベントがトリガーされたチャンネルに say() でメッセージを送信します
-  await say(`xx get 56 points! thanks from <@${message.user}>!`);
+  // message.textの内容において`@`から`|`までの文字列を取得する
+  const regex = /<(.*?)>/g;
+  const receivedUser = regex.exec(message.text)[1].replace('@', '');
+
+  await say(`<@${receivedUser}> get 56 points! thanks from <@${message.user}>!`);
 });
 
 (async () => {
