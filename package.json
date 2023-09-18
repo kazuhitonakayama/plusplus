@@ -1,0 +1,14 @@
+{
+  "name": "plusplus",
+  "version": "1.0.0",
+  "description": "send thanks to someone",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kazuhitonakayama",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/bolt": "^3.13.3"
+  }
+}
