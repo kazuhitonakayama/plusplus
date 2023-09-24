@@ -48,7 +48,7 @@ app.message('++', async ({ message, say }) => {
 
   try {
     const results = await client.query('SELECT point FROM points WHERE user_slack_id = $1', [givedUser]);
-    point = results.rows[0];
+    point = results.rows[0].point;
     console.log(point);
   } catch (err) {
     console.error(err);
