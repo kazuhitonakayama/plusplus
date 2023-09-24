@@ -46,6 +46,18 @@ app.message('++', async ({ message, say }) => {
   })
   await client.connect()
 
+  // ユーザーが登録されているかどうかを確認する
+  // もしいないならば作成して0を代入
+  try {
+    const results = await client.query('SELECT id FROM points WHERE user_slack_id = $1', [receivedUser]);
+    if (results.rows.length === 0) {
+      await client.query('INSERT INTO points (user_slack_id, point) VALUES ($1, $2)', [receivedUser, 0]);
+    }
+    console.log(point);
+  } catch (err) {
+    console.error(err);
+  }
+
   // 現在の値を参照する
   try {
     const results = await client.query('SELECT point FROM points WHERE user_slack_id = $1', [receivedUser]);
