@@ -27,7 +27,7 @@ expressApp.get('/db', async (req, res) => {
     const client = await client.connect();
     const result = await client.query('SELECT * FROM points');
     const results = { 'results': (result) ? result.rows : null};
-    res.render('views/results', results );
+    res.render('results', results );
     client.release();
   } catch (err) {
     console.error(err);
