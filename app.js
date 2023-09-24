@@ -42,8 +42,18 @@ app.message('++', async ({ message, say }) => {
   const regex = /<(.*?)>/g;
   const receivedUser = regex.exec(message.text)[1].replace('@', '');
   const givedUser = message.user;
+  let point;
 
-  await say(`<@${receivedUser}> get 56 points! thanks from <@${message.user}>!`);
+  try {
+    const client = await client.connect();
+    point = await client.query('SELECT point FROM points WHERE user_slack_id = $1', [givedUser]);
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+
+  await say(`<@${receivedUser}> get ${point} points! thanks from <@${message.user}>!`);
 });
 
 (async () => {
