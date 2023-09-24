@@ -10,6 +10,7 @@ const client = new Client({
 // express app
 const express = require('express');
 const expressApp = express()
+expressApp.set('view engine', 'ejs');
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
@@ -26,9 +27,7 @@ expressApp.get('/db', async (req, res) => {
     const client = await client.connect();
     const result = await client.query('SELECT * FROM points');
     const results = { 'results': (result) ? result.rows : null};
-    console.log("%%%%%%%%")
-    console.log(results)
-    console.log("%%%%%%%%")
+    res.render('views/results', results );
     client.release();
   } catch (err) {
     console.error(err);
