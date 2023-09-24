@@ -48,7 +48,7 @@ app.message('++', async ({ message, say }) => {
 
   // 現在の値を参照する
   try {
-    const results = await client.query('SELECT point FROM points WHERE user_slack_id = $1', [givedUser]);
+    const results = await client.query('SELECT point FROM points WHERE user_slack_id = $1', [receivedUser]);
     point = results.rows[0].point;
     console.log(point);
   } catch (err) {
@@ -59,7 +59,7 @@ app.message('++', async ({ message, say }) => {
 
   // 値を更新する
   try {
-    const results = await client.query('UPDATE points SET point = $1 WHERE user_slack_id = $2', [point, givedUser]);
+    const results = await client.query('UPDATE points SET point = $1 WHERE user_slack_id = $2', [point, receivedUser]);
     point = results.rows[0].point;
     console.log(point);
   } catch (err) {
