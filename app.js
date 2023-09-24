@@ -44,10 +44,10 @@ app.message('++', async ({ message, say }) => {
       rejectUnauthorized: false
     }
   })
+  client.connect();
 
   try {
-    const client = await client.connect();
-    point = await client.query('SELECT point FROM points WHERE user_slack_id = $1', [givedUser]);
+    point = client.query('SELECT point FROM points WHERE user_slack_id = $1', [givedUser]);
     client.release();
   } catch (err) {
     console.error(err);
