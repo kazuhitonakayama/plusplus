@@ -22,7 +22,7 @@ const app = new App({
   port: process.env.PORT || 3000
 });
 
-expressApp.get('/db', async (req, res) => {
+expressApp.get('/', async (req, res) => {
   try {
     const client = await client.connect();
     const result = await client.query('SELECT * FROM points');
