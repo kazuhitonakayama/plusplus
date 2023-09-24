@@ -8,7 +8,17 @@ const client = new Client({
   }
 })
 
-.get('/db', async (req, res) => {
+const app = new App({
+  token: process.env.SLACK_BOT_TOKEN,
+  signingSecret: process.env.SLACK_SIGNING_SECRET,
+  socketMode: false,
+  appToken: process.env.SLACK_APP_TOKEN,
+  // ソケットモードではポートをリッスンしませんが、アプリを OAuth フローに対応させる場合、
+  // 何らかのポートをリッスンする必要があります
+  port: process.env.PORT || 3000
+});
+
+app.get('/db', async (req, res) => {
   try {
     const client = await client.connect();
     const result = await client.query('SELECT * FROM points');
@@ -20,16 +30,6 @@ const client = new Client({
     res.send("Error " + err);
   }
 })
-
-const app = new App({
-  token: process.env.SLACK_BOT_TOKEN,
-  signingSecret: process.env.SLACK_SIGNING_SECRET,
-  socketMode: false,
-  appToken: process.env.SLACK_APP_TOKEN,
-  // ソケットモードではポートをリッスンしませんが、アプリを OAuth フローに対応させる場合、
-  // 何らかのポートをリッスンする必要があります
-  port: process.env.PORT || 3000
-});
 
 // "hello" を含むメッセージをリッスンします
 app.message('++', async ({ message, say }) => {
