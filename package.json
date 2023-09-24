@@ -9,6 +9,7 @@
   "author": "kazuhitonakayama",
   "license": "ISC",
   "dependencies": {
-    "@slack/bolt": "^3.13.3"
+    "@slack/bolt": "^3.13.3",
+    "pg": "^8.11.3"
   }
 }
