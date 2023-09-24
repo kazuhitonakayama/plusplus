@@ -7,6 +7,9 @@ const client = new Client({
     rejectUnauthorized: false
   }
 })
+// express app
+const express = require('express');
+const expressApp = express()
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
@@ -18,7 +21,7 @@ const app = new App({
   port: process.env.PORT || 3000
 });
 
-app.get('/db', async (req, res) => {
+expressApp.get('/db', async (req, res) => {
   try {
     const client = await client.connect();
     const result = await client.query('SELECT * FROM points');
