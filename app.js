@@ -1,12 +1,6 @@
 const { App } = require('@slack/bolt');
 // postgresqlの設定
 const { Client } = require('pg');
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-})
 // express app
 const express = require('express');
 const expressApp = express()
@@ -44,13 +38,19 @@ app.message('++', async ({ message, say }) => {
   const givedUser = message.user;
   let point;
 
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
+  })
+
   try {
     const client = await client.connect();
     point = await client.query('SELECT point FROM points WHERE user_slack_id = $1', [givedUser]);
     client.release();
   } catch (err) {
     console.error(err);
-    res.send("Error " + err);
   }
 
   await say(`<@${receivedUser}> get ${point} points! thanks from <@${message.user}>!`);
