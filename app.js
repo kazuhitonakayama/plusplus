@@ -68,7 +68,7 @@ app.message('++', async ({ message, say }) => {
 
   await client.end()
 
-  await say(`<@${receivedUser}> get ${point} points! thanks from <@${message.user}>!`);
+  await say(`<@${receivedUser}> get ${point} points!`);
 });
 
 (async () => {
