@@ -36,7 +36,6 @@ app.message('++', async ({ message, say }) => {
     if (results.rows.length === 0) {
       await client.query('INSERT INTO points (user_slack_id, point) VALUES ($1, $2)', [receivedUser, 0]);
     }
-    console.log(point);
   } catch (err) {
     console.error(err);
   }
