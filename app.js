@@ -72,8 +72,7 @@ app.message('++', async ({ message, say }) => {
   // 値を更新する
   try {
     const results = await client.query('UPDATE points SET point = $1 WHERE user_slack_id = $2', [point, receivedUser]);
-    point = results.rows[0].point;
-    console.log(point);
+    console.log(results);
   } catch (err) {
     console.error(err);
   }
