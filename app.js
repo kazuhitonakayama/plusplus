@@ -1,10 +1,6 @@
 const { App } = require('@slack/bolt');
 // postgresqlの設定
 const { Client } = require('pg');
-// express app
-const express = require('express');
-const expressApp = express()
-expressApp.set('view engine', 'ejs');
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
@@ -15,19 +11,6 @@ const app = new App({
   // 何らかのポートをリッスンする必要があります
   port: process.env.PORT || 3000
 });
-
-expressApp.get('/', async (req, res) => {
-  try {
-    const client = await client.connect();
-    const result = await client.query('SELECT * FROM points');
-    const results = { 'results': (result) ? result.rows : null};
-    res.render('results', results );
-    client.release();
-  } catch (err) {
-    console.error(err);
-    res.send("Error " + err);
-  }
-})
 
 // "hello" を含むメッセージをリッスンします
 app.message('++', async ({ message, say }) => {
